@@ -1,0 +1,37 @@
+{
+  "client": [
+    {
+      "services": {
+        "appinvite_service": {
+          "status": 1
+        }, 
+        "analytics_service": {
+          "status": 0
+        }
+      }, 
+      "oauth_client": [
+        {
+          "client_id": "485924559470-tld97re2b351ht4oa61r0r8ggoq4ih75.apps.googleusercontent.com"
+        }
+      ], 
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT3CNUX2BECRTTJY5PcOYD1j9t9ZnoIGw"
+        }
+      ], 
+      "client_info": {
+        "mobilesdk_app_id": "1:485924559470:ios:95423f23e51dec52e6a47f", 
+        "android_client_info": {
+          "package_name": "connectedGaming"
+        }
+      }
+    }
+  ], 
+  "configuration_version": "1", 
+  "project_info": {
+    "storage_bucket": "connectedgamingassign.appspot.com", 
+    "project_id": "connectedgamingassign", 
+    "firebase_url": "https://connectedgamingassign-default-rtdb.europe-west1.firebasedatabase.app", 
+    "project_number": "485924559470"
+  }
+}
