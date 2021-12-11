@@ -52,9 +52,7 @@ public class SquareMover : MonoBehaviour
         else
         {
             liveSquarePos = FirebaseController.player1PosLive;
-            Debug.Log(liveSquarePos);
             this.transform.position = StringToVector3(liveSquarePos);
-
         }
 
     }
@@ -70,12 +68,24 @@ public class SquareMover : MonoBehaviour
         // split the items
         string[] sArray = sVector.Split(',');
 
+        
         // store as a Vector3
-        Vector3 result = new Vector3(
-            float.Parse(sArray[0]),
-            float.Parse(sArray[1]),
-            float.Parse(sArray[2]));
+        try
+        {
+            Vector3 result = new Vector3(
+                    float.Parse(sArray[0]),
+                    float.Parse(sArray[1]),
+                    float.Parse(sArray[2]));
+            return result;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e + "Error");
+        }
 
-        return result;
+        return Vector3.forward;
+    
+
+       
     }
 }

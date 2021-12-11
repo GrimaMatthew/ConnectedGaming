@@ -48,6 +48,8 @@ public class FirebaseController : MonoBehaviour
 
     public static string player1PosLive = "";
 
+    public static string player2PosLive = "";
+
 
     public static IEnumerator CreateGameInstance(string sGName1)
     {
@@ -94,6 +96,11 @@ public class FirebaseController : MonoBehaviour
                 if (child.Key == "player1Pos")
                 {
                     player1PosLive = child.Value.ToString(); 
+                }
+
+                if (child.Key == "player2Pos")
+                {
+                    player2PosLive = child.Value.ToString();
                 }
             }
         }

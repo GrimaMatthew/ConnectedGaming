@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class CircleMover : MonoBehaviour
 
     string intialNameEntered;
     string nameInFirebase;
+    string circleLivePos;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +50,45 @@ public class CircleMover : MonoBehaviour
             }
 
         }
-       
+        else
+        {
+            circleLivePos = FirebaseController.player2PosLive;
+            this.transform.position = StringToVector3(circleLivePos);
+
+        }
+
+    }
+
+
+    public static Vector3 StringToVector3(string sVector)
+    {
+        // Remove the parentheses
+        if (sVector.StartsWith("(") && sVector.EndsWith(")"))
+        {
+            sVector = sVector.Substring(1, sVector.Length - 2);
+        }
+
+        // split the items
+        string[] sArray = sVector.Split(',');
+
+
+        // store as a Vector3
+        try
+        {
+            Vector3 result = new Vector3(
+                    float.Parse(sArray[0]),
+                    float.Parse(sArray[1]),
+                    float.Parse(sArray[2]));
+            return result;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e + "Error");
+        }
+
+        return Vector3.forward;
+
+
+
     }
 }
