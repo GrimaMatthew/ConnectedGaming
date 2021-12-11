@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static string intialName;
+
     [SerializeField] private TMPro.TMP_InputField inpGameName;
     [SerializeField] private TMPro.TMP_InputField inpUniqueCodeToShare;
     [SerializeField] private TMPro.TMP_InputField inpUniqueCodeToJoin;
+
 
     public static void LoadScene(string sSceneName)
     {
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
     {
         if (inpGameName.text != null)
         {
+            intialName = inpGameName.text;
             StartCoroutine(FirebaseController.CreateGameInstance(inpGameName.text));
         }
     }
@@ -77,7 +81,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame

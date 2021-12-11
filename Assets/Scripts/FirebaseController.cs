@@ -3,21 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Firebase.Database;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 //Creating lobby with game deatils
 [SerializeField]
 public class cls_GameLobby
 {
-    public string gameNameplr1, gameNameplr2 , shapeName1, shapeName2, DateTimeCreated;
+    public string gameNameplr1, gameNameplr2 , shapeName1, shapeName2, DateTimeCreated, player1Pos;
 
-    public cls_GameLobby(string gName1, string gName2 , string shape1, string shape2 , string dTCreated)
+    public cls_GameLobby(string gName1, string gName2 , string shape1, string shape2 , string dTCreated , string p1Pos)
     {
         this.gameNameplr1 = gName1;
         this.gameNameplr2 = gName2;
         this.shapeName1 = shape1;
         this.shapeName2 = shape2;
         this.DateTimeCreated = dTCreated;
+        this.player1Pos = p1Pos;
     }
 
 }
@@ -39,8 +41,13 @@ public class FirebaseController : MonoBehaviour
 
     public static DateTime now = DateTime.Now;
 
+    public static string player1Pos = SquareMover.SquarePosition.ToString();
+
+
     public static IEnumerator CreateGameInstance(string sGName1)
     {
+
+     
         //Intialing the first game name
         sGameName1 = sGName1;
 
@@ -48,7 +55,7 @@ public class FirebaseController : MonoBehaviour
         sUniqueKey = dbRef.Child("Objects").Push().Key;
 
         //Intialising the lobby
-        cls_GameLobby lobby = new cls_GameLobby(sGName1, "", "circle", "square" , now.ToString());
+        cls_GameLobby lobby = new cls_GameLobby(sGName1, "", "circle", "square" , now.ToString(), player1Pos);
 
         //puts the key as a child of the object  
         dbRef.Child("Objects").Child(sUniqueKey).ValueChanged += HandleValueChanged;
@@ -81,6 +88,7 @@ public class FirebaseController : MonoBehaviour
             }
         }
     }
+
 
 
 
@@ -118,7 +126,7 @@ public class FirebaseController : MonoBehaviour
     public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
     {
       
-        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2 , "circle" ,"square" , now.ToString());
+        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2 , "circle" ,"square" , now.ToString() , player1Pos);
         dbRef.Child("Objects").Child(key).SetRawJsonValueAsync(JsonUtility.ToJson(GameLobby));
     }
         
@@ -132,6 +140,12 @@ public class FirebaseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+  
+       if(SceneManager.GetActiveScene().name == "LiveGame") 
+        { 
+            player1Pos = SquareMover.SquarePosition.ToString();
+            dbRef.Child("Objects").Child(sUniqueKey).Child("player1Pos").SetValueAsync(player1Pos);
+        }
         
     }
 }
