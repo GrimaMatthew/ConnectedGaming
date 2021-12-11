@@ -75,37 +75,43 @@ public class FirebaseController : MonoBehaviour
         }
     }
 
-    public static IEnumerator ValidateUniqueKey(string Key)
+
+
+    public static IEnumerator ValidateKey(string uniqKey)
     {
-        Debug.Log("Validate Method");
-        Debug.Log("Key Value: " + Key);
-        Debug.Log("Player2: " + sGameName2);
-        yield return dbRef.Child("Objects").Child(Key).GetValueAsync().ContinueWith(task =>
+        Debug.Log("uniq"+uniqKey);
+        yield return dbRef.Child("Objects").Child(uniqKey).GetValueAsync().ContinueWith(task =>
         {
+
             if (task.IsCompleted)
             {
-                DataSnapshot snapShot = task.Result;
-                Debug.Log("Snaphto details:  "+ snapShot.Value);
+                DataSnapshot snapshot = task.Result;
 
-                if (snapShot.Value != null)
+                if (snapshot.Value != null)
                 {
-                    foreach (var child in snapShot.Children)
+                    Debug.Log("Key Match");
+
+                    foreach(var child in snapshot.Children)
                     {
-                        Debug.Log("Child Key " + child.Key);
                         if (child.Key == "gameNameplr1")
                         {
+                            Debug.Log("HERER");
                             sGameName1 = child.Value.ToString();
                         }
                     }
+                    Debug.Log("UniqueKey: "+uniqKey);
+                    AddPlayersToLobby(sGameName1, sGameName2, uniqKey);
                 }
-          
             }
         });
     }
 
+  
+
 
     public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
     {
+      
         cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2);
         dbRef.Child("Objects").Child(key).SetRawJsonValueAsync(JsonUtility.ToJson(GameLobby));
     }

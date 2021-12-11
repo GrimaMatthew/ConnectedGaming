@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
     {
         if (inpUniqueCodeToJoin.text != null)
         {
-            StartCoroutine(FirebaseController.ValidateUniqueKey(inpUniqueCodeToJoin.text));
+            Debug.Log(inpUniqueCodeToJoin.text);
+            StartCoroutine(FirebaseController.ValidateKey(inpUniqueCodeToJoin.text));
         }
     }
 
