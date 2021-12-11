@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 [SerializeField]
 public class cls_GameLobby
 {
-    public string gameNameplr1, gameNameplr2 , shapeName1, shapeName2, DateTimeCreated, player1Pos , player2pos;
+    public string gameNameplr1, gameNameplr2 , shapeName1, shapeName2, DateTimeCreated, player1Pos , player2Pos;
 
     public cls_GameLobby(string gName1, string gName2 , string shape1, string shape2 , string dTCreated , string p1Pos, string p2Pos)
     {
@@ -20,7 +20,7 @@ public class cls_GameLobby
         this.shapeName2 = shape2;
         this.DateTimeCreated = dTCreated;
         this.player1Pos = p1Pos;
-        this.player2pos = p2Pos;
+        this.player2Pos = p2Pos;
     }
 
 }
@@ -93,10 +93,6 @@ public class FirebaseController : MonoBehaviour
     }
 
 
-
-
-
-
     public static IEnumerator ValidateKey(string uniqKey)
     {
         Debug.Log("uniq"+uniqKey);
@@ -131,7 +127,7 @@ public class FirebaseController : MonoBehaviour
     public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
     {
       
-        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2 , "circle" ,"square" , now.ToString() , player1Pos , player2Pos);
+        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2 , "circle" ,"square" , now.ToString() , player1Pos , "");
         dbRef.Child("Objects").Child(key).SetRawJsonValueAsync(JsonUtility.ToJson(GameLobby));
     }
         
@@ -159,7 +155,7 @@ public class FirebaseController : MonoBehaviour
             {
                 Debug.Log("Active 2");
                 player2Pos = CircleMover.circlePosition.ToString();
-                dbRef.Child("Objects").Child(sUniqueKey).Child("player2pos").SetValueAsync(player2Pos);
+                dbRef.Child("Objects").Child(sUniqueKey).Child("player2Pos").SetValueAsync(player2Pos);
 
             }
         }
