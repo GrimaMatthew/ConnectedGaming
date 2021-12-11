@@ -127,7 +127,7 @@ public class FirebaseController : MonoBehaviour
     public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
     {
       
-        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2 , "circle" ,"square" , now.ToString() , player1Pos , "");
+        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2 , "circle" ,"square" , now.ToString() , player1Pos , player2Pos);
         dbRef.Child("Objects").Child(key).SetRawJsonValueAsync(JsonUtility.ToJson(GameLobby));
     }
         
@@ -146,16 +146,18 @@ public class FirebaseController : MonoBehaviour
         {
             if (GameManager.intialNameP1 == FirebaseController.sGameName1)
             {
-                Debug.Log("Active 1");
+                Debug.Log("Active 1: "+ sUniqueKey);
                 player1Pos = SquareMover.SquarePosition.ToString();
                 dbRef.Child("Objects").Child(sUniqueKey).Child("player1Pos").SetValueAsync(player1Pos);
+            
             }
 
             if (GameManager.intialNameP2 == FirebaseController.sGameName2 && GameManager.intialNameP2 != "")
             {
-                Debug.Log("Active 2");
+                Debug.Log("Active 2: " + GameManager.keyvar);
+              
                 player2Pos = CircleMover.circlePosition.ToString();
-                dbRef.Child("Objects").Child(sUniqueKey).Child("player2Pos").SetValueAsync(player2Pos);
+                dbRef.Child("Objects").Child(GameManager.keyvar).Child("player2Pos").SetValueAsync(player2Pos);
 
             }
         }

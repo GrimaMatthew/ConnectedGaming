@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static string intialNameP1;
     public static string intialNameP2;
 
+    public static string keyvar;
+
     [SerializeField] private TMPro.TMP_InputField inpGameName;
     [SerializeField] private TMPro.TMP_InputField inpUniqueCodeToShare;
     [SerializeField] private TMPro.TMP_InputField inpUniqueCodeToJoin;
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
         if (inpUniqueCodeToJoin.text != null)
         {
             Debug.Log(inpUniqueCodeToJoin.text);
+            keyvar = inpUniqueCodeToJoin.text;
             StartCoroutine(FirebaseController.ValidateKey(inpUniqueCodeToJoin.text));
             joinLobby();
          
