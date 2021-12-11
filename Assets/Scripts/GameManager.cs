@@ -48,8 +48,6 @@ public class GameManager : MonoBehaviour
             keyvar = inpUniqueCodeToJoin.text;
             StartCoroutine(FirebaseController.ValidateKey(inpUniqueCodeToJoin.text));
             joinLobby();
-            StartCoroutine(FirebaseController.getSquarePos());
-         
         }
     }
 

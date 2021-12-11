@@ -93,10 +93,7 @@ public class FirebaseController : MonoBehaviour
 
                 if (child.Key == "player1Pos")
                 {
-                    Debug.Log(child.Value.ToString() + "THIS IS THE VALUE");
-                    player1PosLive = child.Value.ToString();
-                 
-                  
+                    player1PosLive = child.Value.ToString(); 
                 }
             }
         }
@@ -121,29 +118,20 @@ public class FirebaseController : MonoBehaviour
                     {
                         if (child.Key == "gameNameplr1")
                         {
-                            
+     
                             sGameName1 = child.Value.ToString();
                         }
                     }
                   
                     AddPlayersToLobby(sGameName1, sGameName2, uniqKey);
                 }
+                dbRef.Child("Objects").Child(uniqKey).ValueChanged += HandleValueChanged;
+
             }
         });
     }
 
-    public static IEnumerator getSquarePos()
-    {
-        Debug.Log("222");
-        //puts the key as a child of the object  
-        dbRef.Child("Objects").Child(sUniqueKey).ValueChanged += HandleValueChanged;
-
-        yield return null;
-    }
-
-
-
-
+ 
 
     public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
     {

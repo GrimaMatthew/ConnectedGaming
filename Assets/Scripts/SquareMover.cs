@@ -25,8 +25,6 @@ public class SquareMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        liveSquarePos = FirebaseController.player1PosLive;
-
 
         if (intialNameEntered == nameInFirebase)
         {
@@ -52,7 +50,9 @@ public class SquareMover : MonoBehaviour
         }
         else
         {
-            
+            liveSquarePos = FirebaseController.player1PosLive;
+            Debug.Log(liveSquarePos);
+          
         }
 
     }
@@ -74,7 +74,7 @@ public class SquareMover : MonoBehaviour
             float.Parse(sArray[1]),
             float.Parse(sArray[2]));
 
-        
+        SquarePosition = new Vector3(float.Parse(sArray[0]), float.Parse(sArray[1]), float.Parse(sArray[0]) );
 
         return result;
     }
