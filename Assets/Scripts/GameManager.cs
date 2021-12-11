@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static string intialName;
+    public static string intialNameP1;
+    public static string intialNameP2;
 
     [SerializeField] private TMPro.TMP_InputField inpGameName;
     [SerializeField] private TMPro.TMP_InputField inpUniqueCodeToShare;
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     {
         if (inpGameName.text != null)
         {
-            intialName = inpGameName.text;
+            intialNameP1 = inpGameName.text;
             StartCoroutine(FirebaseController.CreateGameInstance(inpGameName.text));
         }
     }
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if (inpGameName.text != null)
         {
+            intialNameP2 = inpGameName.text;
             FirebaseController.sGameName2 = inpGameName.text;
             LoadScene("JoinLobby");
         }

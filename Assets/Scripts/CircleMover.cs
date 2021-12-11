@@ -2,29 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SquareMover : MonoBehaviour
+public class CircleMover : MonoBehaviour
 {
     public float speed = 1.5f;
 
-    public static Vector3 SquarePosition;
+    public static Vector3 circlePosition;
+
     string intialNameEntered;
     string nameInFirebase;
     // Start is called before the first frame update
     void Start()
     {
-        intialNameEntered = GameManager.intialNameP1;
-        nameInFirebase = FirebaseController.sGameName1;
 
+        intialNameEntered = GameManager.intialNameP2;
+        nameInFirebase = FirebaseController.sGameName2;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+  
         if (intialNameEntered == nameInFirebase)
         {
-            SquarePosition = transform.position;
+            
+            circlePosition = transform.position;
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -44,6 +46,6 @@ public class SquareMover : MonoBehaviour
             }
 
         }
-
+       
     }
 }
