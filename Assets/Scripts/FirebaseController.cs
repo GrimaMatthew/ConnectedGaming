@@ -32,10 +32,6 @@ public class FirebaseController : MonoBehaviour
     public static string sGameName2="";
 
 
-
-
-
-
     public static IEnumerator CreateGameInstance(string sGName1)
     {
         //Intialing the first game name
@@ -79,12 +75,45 @@ public class FirebaseController : MonoBehaviour
         }
     }
 
+    public static IEnumerator ValidateUniqueKey(string Key)
+    {
+        Debug.Log("Validate Method");
+        Debug.Log("Key Value: " + Key);
+        Debug.Log("Player2: " + sGameName2);
+        yield return dbRef.Child("Objects").Child(Key).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapShot = task.Result;
+                Debug.Log("Snaphto details:  "+ snapShot.Value);
+
+                if (snapShot.Value != null)
+                {
+                    foreach (var child in snapShot.Children)
+                    {
+                        Debug.Log("Child Key " + child.Key);
+                        if (child.Key == "gameNameplr1")
+                        {
+                            sGameName1 = child.Value.ToString();
+                        }
+                    }
+                }
+          
+            }
+        });
+    }
+
+
+    public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
+    {
+        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2);
+        dbRef.Child("Objects").Child(key).SetRawJsonValueAsync(JsonUtility.ToJson(GameLobby));
+    }
         
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
         dbRef = FirebaseDatabase.DefaultInstance.RootReference;
-
         
     }
 

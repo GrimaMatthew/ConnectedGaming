@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMPro.TMP_InputField inpGameName;
     [SerializeField] private TMPro.TMP_InputField inpUniqueCodeToShare;
+    [SerializeField] private TMPro.TMP_InputField inpUniqueCodeToJoin;
 
     public static void LoadScene(string sSceneName)
     {
@@ -23,7 +24,22 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void JoinGame()
+    {
+        if (inpGameName.text != null)
+        {
+            FirebaseController.sGameName2 = inpGameName.text;
+            LoadScene("JoinLobby");
+        }
+    }
 
+    public void JoinGameLobby()
+    {
+        if (inpUniqueCodeToJoin.text != null)
+        {
+            StartCoroutine(FirebaseController.ValidateUniqueKey(inpUniqueCodeToJoin.text));
+        }
+    }
 
 
     public void Awake()
@@ -35,6 +51,10 @@ public class GameManager : MonoBehaviour
 
             case "Lobby":
                 inpUniqueCodeToShare.text = FirebaseController.sUniqueKey;
+                break;
+
+            case "LiveGame":
+  
                 break;
 
             default:

@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 200458498}
   - component: {fileID: 200458497}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: uniqueKeyInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,6 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inpGameName: {fileID: 0}
   inpUniqueCodeToShare: {fileID: 0}
+  inpUniqueCodeToJoin: {fileID: 200458497}
 --- !u!4 &358741921
 Transform:
   m_ObjectHideFlags: 0
@@ -951,7 +952,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 540535750}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 358741920}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: JoinGameLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &540535750
 MonoBehaviour:
   m_ObjectHideFlags: 0
