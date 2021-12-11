@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class SquareMover : MonoBehaviour
     public static Vector3 SquarePosition;
     string intialNameEntered;
     string nameInFirebase;
+    string liveSquarePos;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +25,8 @@ public class SquareMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        liveSquarePos = FirebaseController.player1PosLive;
+
 
         if (intialNameEntered == nameInFirebase)
         {
@@ -44,6 +50,32 @@ public class SquareMover : MonoBehaviour
             }
 
         }
+        else
+        {
+            
+        }
 
+    }
+
+    public static Vector3 StringToVector3(string sVector)
+    {
+        // Remove the parentheses
+        if (sVector.StartsWith("(") && sVector.EndsWith(")"))
+        {
+            sVector = sVector.Substring(1, sVector.Length - 2);
+        }
+
+        // split the items
+        string[] sArray = sVector.Split(',');
+
+        // store as a Vector3
+        Vector3 result = new Vector3(
+            float.Parse(sArray[0]),
+            float.Parse(sArray[1]),
+            float.Parse(sArray[2]));
+
+        
+
+        return result;
     }
 }

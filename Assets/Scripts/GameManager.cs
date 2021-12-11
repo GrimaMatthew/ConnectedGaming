@@ -45,12 +45,11 @@ public class GameManager : MonoBehaviour
     {
         if (inpUniqueCodeToJoin.text != null)
         {
-            Debug.Log(inpUniqueCodeToJoin.text);
             keyvar = inpUniqueCodeToJoin.text;
             StartCoroutine(FirebaseController.ValidateKey(inpUniqueCodeToJoin.text));
             joinLobby();
+            StartCoroutine(FirebaseController.getSquarePos());
          
-
         }
     }
 
@@ -75,7 +74,6 @@ public class GameManager : MonoBehaviour
                 break;
 
             case "LiveGame":
-                   
                 break;
 
             default:

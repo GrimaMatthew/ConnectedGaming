@@ -46,6 +46,8 @@ public class FirebaseController : MonoBehaviour
 
     public static string player2Pos = CircleMover.circlePosition.ToString();
 
+    public static string player1PosLive = "";
+
 
     public static IEnumerator CreateGameInstance(string sGName1)
     {
@@ -80,22 +82,30 @@ public class FirebaseController : MonoBehaviour
         }
         else
         {
-            Debug.Log("HERE");
+           
             foreach (var child in args.Snapshot.Children)
             {
                 if (child.Key == "gameNameplr2")
                 {
                     sGameName2 = child.Value.ToString(); ;
-                    Debug.Log("Set Player 2");
+                    
+                }
+
+                if (child.Key == "player1Pos")
+                {
+                    Debug.Log(child.Value.ToString() + "THIS IS THE VALUE");
+                    player1PosLive = child.Value.ToString();
+                 
+                  
                 }
             }
         }
     }
 
 
-    public static IEnumerator ValidateKey(string uniqKey)
+   public static IEnumerator ValidateKey(string uniqKey)
     {
-        Debug.Log("uniq"+uniqKey);
+        
         yield return dbRef.Child("Objects").Child(uniqKey).GetValueAsync().ContinueWith(task =>
         {
 
@@ -115,12 +125,23 @@ public class FirebaseController : MonoBehaviour
                             sGameName1 = child.Value.ToString();
                         }
                     }
-                    Debug.Log("Plat: "+sGameName2);
+                  
                     AddPlayersToLobby(sGameName1, sGameName2, uniqKey);
                 }
             }
         });
     }
+
+    public static IEnumerator getSquarePos()
+    {
+        Debug.Log("222");
+        //puts the key as a child of the object  
+        dbRef.Child("Objects").Child(sUniqueKey).ValueChanged += HandleValueChanged;
+
+        yield return null;
+    }
+
+
 
 
 
@@ -146,7 +167,7 @@ public class FirebaseController : MonoBehaviour
         {
             if (GameManager.intialNameP1 == FirebaseController.sGameName1)
             {
-                Debug.Log("Active 1: "+ sUniqueKey);
+               
                 player1Pos = SquareMover.SquarePosition.ToString();
                 dbRef.Child("Objects").Child(sUniqueKey).Child("player1Pos").SetValueAsync(player1Pos);
             
@@ -154,7 +175,7 @@ public class FirebaseController : MonoBehaviour
 
             if (GameManager.intialNameP2 == FirebaseController.sGameName2 && GameManager.intialNameP2 != "")
             {
-                Debug.Log("Active 2: " + GameManager.keyvar);
+             
               
                 player2Pos = CircleMover.circlePosition.ToString();
                 dbRef.Child("Objects").Child(GameManager.keyvar).Child("player2Pos").SetValueAsync(player2Pos);
