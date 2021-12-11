@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Firebase.Database;
@@ -8,15 +9,20 @@ using UnityEngine;
 [SerializeField]
 public class cls_GameLobby
 {
-    public string gameNameplr1, gameNameplr2;
+    public string gameNameplr1, gameNameplr2 , shapeName1, shapeName2, DateTimeCreated;
 
-    public cls_GameLobby(string gName1, string gName2)
+    public cls_GameLobby(string gName1, string gName2 , string shape1, string shape2 , string dTCreated)
     {
         this.gameNameplr1 = gName1;
         this.gameNameplr2 = gName2;
+        this.shapeName1 = shape1;
+        this.shapeName2 = shape2;
+        this.DateTimeCreated = dTCreated;
     }
 
 }
+
+
 
 public class FirebaseController : MonoBehaviour
 {
@@ -31,6 +37,7 @@ public class FirebaseController : MonoBehaviour
 
     public static string sGameName2="";
 
+    public static DateTime now = DateTime.Now;
 
     public static IEnumerator CreateGameInstance(string sGName1)
     {
@@ -41,7 +48,7 @@ public class FirebaseController : MonoBehaviour
         sUniqueKey = dbRef.Child("Objects").Push().Key;
 
         //Intialising the lobby
-        cls_GameLobby lobby = new cls_GameLobby(sGName1, "");
+        cls_GameLobby lobby = new cls_GameLobby(sGName1, "", "circle", "square" , now.ToString());
 
         //puts the key as a child of the object  
         dbRef.Child("Objects").Child(sUniqueKey).ValueChanged += HandleValueChanged;
@@ -95,24 +102,23 @@ public class FirebaseController : MonoBehaviour
                     {
                         if (child.Key == "gameNameplr1")
                         {
-                            Debug.Log("HERER");
+                            
                             sGameName1 = child.Value.ToString();
                         }
                     }
-                    Debug.Log("UniqueKey: "+uniqKey);
+                    Debug.Log("Plat: "+sGameName2);
                     AddPlayersToLobby(sGameName1, sGameName2, uniqKey);
                 }
             }
         });
     }
 
-  
 
 
     public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
     {
       
-        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2);
+        cls_GameLobby GameLobby = new cls_GameLobby(gameName1, gameName2 , "circle" ,"square" , now.ToString());
         dbRef.Child("Objects").Child(key).SetRawJsonValueAsync(JsonUtility.ToJson(GameLobby));
     }
         

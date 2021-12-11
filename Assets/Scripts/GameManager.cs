@@ -39,8 +39,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(inpUniqueCodeToJoin.text);
             StartCoroutine(FirebaseController.ValidateKey(inpUniqueCodeToJoin.text));
+            joinLobby();
+         
+
         }
     }
+
+    public void joinLobby()
+    {
+        LoadScene("LiveGame");  
+    }
+
+
+ 
 
 
     public void Awake()
@@ -55,7 +66,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case "LiveGame":
-  
+                   
                 break;
 
             default:
