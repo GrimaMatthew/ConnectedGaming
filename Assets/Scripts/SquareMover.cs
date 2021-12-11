@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class SquareMover : MonoBehaviour
@@ -52,7 +53,8 @@ public class SquareMover : MonoBehaviour
         {
             liveSquarePos = FirebaseController.player1PosLive;
             Debug.Log(liveSquarePos);
-          
+            this.transform.position = StringToVector3(liveSquarePos);
+
         }
 
     }
@@ -73,8 +75,6 @@ public class SquareMover : MonoBehaviour
             float.Parse(sArray[0]),
             float.Parse(sArray[1]),
             float.Parse(sArray[2]));
-
-        SquarePosition = new Vector3(float.Parse(sArray[0]), float.Parse(sArray[1]), float.Parse(sArray[0]) );
 
         return result;
     }
