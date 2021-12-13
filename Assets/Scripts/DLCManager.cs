@@ -25,7 +25,8 @@ public class DLCManager : MonoBehaviour
             {
                 playerIcon.name = f;
                 playerIcon.AddComponent<SquareMover>();
-                playerIcon.transform.position = new Vector3(0, 0, 0);
+               
+                playerIcon.transform.position = new Vector3(0, 0, 4);
                 
 
             }
@@ -33,7 +34,8 @@ public class DLCManager : MonoBehaviour
             {
                 playerIcon.name = f;
                 playerIcon.AddComponent<CircleMover>();
-                playerIcon.transform.position = new Vector3(1000, 0, 0);
+            
+                playerIcon.transform.position = new Vector3(5, 0, 1);
 
                 Vector3 scaledown = new Vector3(0.5f, 0.5f, 0);
                 playerIcon.transform.localScale = scaledown;
