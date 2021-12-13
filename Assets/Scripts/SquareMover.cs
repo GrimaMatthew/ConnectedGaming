@@ -80,7 +80,7 @@ public class SquareMover : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e + "Error");
+            Debug.Log(e );
         }
 
         return Vector3.forward;

@@ -53,11 +53,9 @@ public class GameManager : MonoBehaviour
 
     public void joinLobby()
     {
-        LoadScene("LiveGame");  
+        LoadScene("LiveGame");
+      
     }
-
-
- 
 
 
     public void Awake()

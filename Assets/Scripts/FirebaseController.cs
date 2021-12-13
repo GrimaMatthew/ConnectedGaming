@@ -138,7 +138,8 @@ public class FirebaseController : MonoBehaviour
         });
     }
 
- 
+
+
 
     public static void AddPlayersToLobby(string gameName1, string gameName2, string key)
     {
@@ -162,20 +163,19 @@ public class FirebaseController : MonoBehaviour
         {
             if (GameManager.intialNameP1 == FirebaseController.sGameName1)
             {
-               
                 player1Pos = SquareMover.SquarePosition.ToString();
                 dbRef.Child("Objects").Child(sUniqueKey).Child("player1Pos").SetValueAsync(player1Pos);
-            
             }
 
             if (GameManager.intialNameP2 == FirebaseController.sGameName2 && GameManager.intialNameP2 != "")
             {
-             
-              
                 player2Pos = CircleMover.circlePosition.ToString();
                 dbRef.Child("Objects").Child(GameManager.keyvar).Child("player2Pos").SetValueAsync(player2Pos);
 
             }
         }
     }
+
+
+
 }
